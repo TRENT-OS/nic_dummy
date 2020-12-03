@@ -50,14 +50,40 @@ import <if_OS_Logger.camkes>;
 
 
 /*
- * Assign all the non-client interfaces:
+ * Assign the optional logger:
+ *
+ *      NIC_Dummy_INSTANCE_CONNECT_OPTIONAL_LOGGER(
+ *          <instance>,
+ *          <logger>.<rpc>, <logger>.<port_to>
+ *      )
+ */
+#define NIC_Dummy_INSTANCE_CONNECT_OPTIONAL_LOGGER( \
+    _inst_, \
+    _log_rpc_, \
+    _log_dp_) \
+    \
+    connection seL4RPCCall \
+        _inst_ ## _log_rpc( \
+            from    _inst_.logServer_rpc, \
+            to      _log_rpc_); \
+    connection seL4SharedData \
+        _inst_ ## _log_dp( \
+            from    _inst_.logServer_port, \
+            to      _log_dp_);
+
+
+//------------------------------------------------------------------------------
+
+
+/*
+ * Connect a network stack to the dummy:
  *
  *      NIC_Dummy_INSTANCE_CONNECT(
  *          <instance>,
- *          <nic>.<rpc>, <nic>.<port_to>, <nic>.<port_from>, <nic>.<evt>,
+ *          <nic>.<rpc>, <nic>.<port_to>, <nic>.<port_from>, <nic>.<evt>
  *      )
  */
-#define NIC_Dummy_INSTANCE_CONNECT( \
+#define NIC_Dummy_INSTANCE_CONNECT_CLIENT( \
     _inst_, \
     _nic_rpc_, \
     _nic_dp_to_, \
@@ -80,26 +106,3 @@ import <if_OS_Logger.camkes>;
         _inst_ ## _nic_dp_to( \
             from    _inst_.nic_port_from, \
             to      _nic_dp_to_);
-
-
-/*
- * Assign the optional logger:
- *
- *      NIC_Dummy_INSTANCE_CONNECT_OPTIONAL_LOGGER(
- *          <instance>,
- *          <logger>.<rpc>, <logger>.<port_to>
- *      )
- */
-#define NIC_Dummy_INSTANCE_CONNECT_OPTIONAL_LOGGER( \
-    _inst_, \
-    _log_rpc_, \
-    _log_dp_) \
-    \
-    connection seL4RPCCall \
-        _inst_ ## _log_rpc( \
-            from    _inst_.logServer_rpc, \
-            to      _log_rpc_); \
-    connection seL4SharedData \
-        _inst_ ## _log_dp( \
-            from    _inst_.logServer_port, \
-            to      _log_dp_);
