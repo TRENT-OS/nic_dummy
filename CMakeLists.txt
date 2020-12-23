@@ -29,7 +29,7 @@ function(NIC_Dummy_DeclareCAmkESComponent
             -Werror
         LIBS
             os_core_api
-            os_libs
+            lib_debug
     )
 
 endfunction()

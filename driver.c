@@ -7,7 +7,7 @@
 #include "OS_Error.h"
 #include "OS_Dataport.h"
 
-#include "LibDebug/Debug.h"
+#include "lib_debug/Debug.h"
 
 #include <string.h>
 
