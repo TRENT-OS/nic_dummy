@@ -14,7 +14,7 @@
 #pragma once
 
 import <std_connector.camkes>;
-import <if_OS_Nic.camkes>;
+#include <if_OS_Nic.camkes>
 import <if_OS_Logger.camkes>;
 
 
@@ -28,10 +28,7 @@ import <if_OS_Logger.camkes>;
     _ringbuffer_size_) \
     \
     component _name_ { \
-        provides         if_OS_Nic              nic_rpc; \
-        emits            EventDataAvailable     nic_event_hasData; \
-        dataport         Buf(_ringbuffer_size_) nic_port_to; \
-        dataport         Buf                    nic_port_from; \
+        IF_OS_NIC_LOWER_INTERFACE_FIELDS(nic, _ringbuffer_size_) \
         \
         maybe uses      if_OS_Logger  logServer_rpc; \
         maybe dataport  Buf           logServer_port; \
@@ -58,39 +55,3 @@ import <if_OS_Logger.camkes>;
         _inst_ ## _log_port( \
             from    _inst_.logServer_port, \
             to      _log_port_);
-
-
-//------------------------------------------------------------------------------
-
-
-/*
- * Connect a network stack to the dummy:
- *
- *      NIC_Dummy_INSTANCE_CONNECT(
- *          <instance>,
- *          <nic>.<rpc>, <nic>.<port_to>, <nic>.<port_from>, <nic>.<evt>
- *      )
- */
-#define NIC_Dummy_INSTANCE_CONNECT_CLIENT( \
-    _inst_, \
-    _nic_rpc_, \
-    _nic_port_to_, \
-    _nic_port_from_, \
-    _nic_ev_) \
-    \
-    connection seL4NotificationNative  \
-        _inst_ ## _nic_ev( \
-            from    _inst_.nic_event_hasData,\
-            to      _nic_ev_); \
-    connection seL4RPCCall \
-        _inst_ ## _nic_rpc( \
-            from    _nic_rpc_, \
-            to      _inst_.nic_rpc); \
-    connection seL4SharedData \
-        _inst_ ## _nic_port_from ( \
-            from    _inst_.nic_port_to, \
-            to      _nic_port_from_); \
-    connection seL4SharedData \
-        _inst_ ## _nic_port_to( \
-            from    _inst_.nic_port_from, \
-            to      _nic_port_to_);
