@@ -6,9 +6,9 @@
  *
  * to be used as:
  *
- *    #include "NIC_Dummy/NIC_Dummy.camkes"
- *    NIC_Dummy_COMPONENT_DEFINE(NIC_Dummy_Driver_1, 4096)
- *    NIC_Dummy_COMPONENT_DEFINE(NIC_Dummy_Driver_2, 4096)
+ *   #include "NIC_Dummy/NIC_Dummy.camkes"
+ *   NIC_Dummy_COMPONENT_DEFINE(NIC_Dummy_Driver_1, 4096)
+ *   NIC_Dummy_COMPONENT_DEFINE(NIC_Dummy_Driver_2, 4096)
  */
 
 #pragma once
@@ -19,15 +19,10 @@ import <if_OS_Logger.camkes>;
 
 
 //------------------------------------------------------------------------------
-
-
-/*
- * Declare the NIC_Dummy with a given type name:
- *
- *      NIC_Dummy_COMPONENT_DEFINE(
- *          <name>,<bufferSize>
- *      )
- */
+// Declare the NIC_Dummy with a given type name:
+//   NIC_Dummy_COMPONENT_DEFINE(
+//       <name>,<bufferSize>
+//   )
 #define NIC_Dummy_COMPONENT_DEFINE( \
     _name_, \
     _ringbuffer_size_) \
@@ -38,23 +33,18 @@ import <if_OS_Logger.camkes>;
         dataport         Buf(_ringbuffer_size_) nic_port_to; \
         dataport         Buf                    nic_port_from; \
         \
-        maybe uses      if_OS_Logger            logServer_rpc; \
-        maybe dataport  Buf                     logServer_port; \
-        maybe consumes  EventReady              logServer_event_ready; \
+        maybe uses      if_OS_Logger  logServer_rpc; \
+        maybe dataport  Buf           logServer_port; \
+        maybe consumes  EventReady    logServer_event_ready; \
     }
 
 
 //------------------------------------------------------------------------------
-
-
-/*
- * Assign the optional logger:
- *
- *      NIC_Dummy_INSTANCE_CONNECT_OPTIONAL_LOGGER(
- *          <instance>,
- *          <logger>.<rpc>, <logger>.<port_to>
- *      )
- */
+// Connect the optional logger:
+//   NIC_Dummy_INSTANCE_CONNECT_OPTIONAL_LOGGER(
+//       <instance>,
+//       <logger>.<rpc>, <logger>.<port_to>
+//   )
 #define NIC_Dummy_INSTANCE_CONNECT_OPTIONAL_LOGGER( \
     _inst_, \
     _log_rpc_, \
