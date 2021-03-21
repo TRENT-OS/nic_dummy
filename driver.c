@@ -1,7 +1,7 @@
 /*
  *  NIC Dummy Driver
  *
- *  Copyright (C) 2020, Hensoldt Cyber GmbH
+ *  Copyright (C) 2020, HENSOLDT Cyber GmbH
  */
 
 #include "OS_Error.h"

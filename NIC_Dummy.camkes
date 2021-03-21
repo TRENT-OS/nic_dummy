@@ -1,17 +1,14 @@
 /*
- * Copyright (C) 2020, Hensoldt Cyber GmbH
- */
-
-/*
- *  NIC-Dummy CAmkES Component
+ * NIC-Dummy CAmkES Component
  *
- *  to be used as:
+ * Copyright (C) 2020-2021, HENSOLDT Cyber GmbH
  *
- *      #include "NIC_Dummy/NIC_Dummy.camkes"
  *
- *      NIC_Dummy_COMPONENT_DEFINE(NIC_Dummy_Driver_1, 4096)
- *      NIC_Dummy_COMPONENT_DEFINE(NIC_Dummy_Driver_2, 4096)
+ * to be used as:
  *
+ *    #include "NIC_Dummy/NIC_Dummy.camkes"
+ *    NIC_Dummy_COMPONENT_DEFINE(NIC_Dummy_Driver_1, 4096)
+ *    NIC_Dummy_COMPONENT_DEFINE(NIC_Dummy_Driver_2, 4096)
  */
 
 #pragma once
