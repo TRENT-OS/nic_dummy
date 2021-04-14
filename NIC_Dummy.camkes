@@ -61,16 +61,16 @@ import <if_OS_Logger.camkes>;
 #define NIC_Dummy_INSTANCE_CONNECT_OPTIONAL_LOGGER( \
     _inst_, \
     _log_rpc_, \
-    _log_dp_) \
+    _log_port_) \
     \
     connection seL4RPCCall \
         _inst_ ## _log_rpc( \
             from    _inst_.logServer_rpc, \
             to      _log_rpc_); \
     connection seL4SharedData \
-        _inst_ ## _log_dp( \
+        _inst_ ## _log_port( \
             from    _inst_.logServer_port, \
-            to      _log_dp_);
+            to      _log_port_);
 
 
 //------------------------------------------------------------------------------
@@ -87,8 +87,8 @@ import <if_OS_Logger.camkes>;
 #define NIC_Dummy_INSTANCE_CONNECT_CLIENT( \
     _inst_, \
     _nic_rpc_, \
-    _nic_dp_to_, \
-    _nic_dp_from_, \
+    _nic_port_to_, \
+    _nic_port_from_, \
     _nic_ev_) \
     \
     connection seL4NotificationNative  \
@@ -100,10 +100,10 @@ import <if_OS_Logger.camkes>;
             from    _nic_rpc_, \
             to      _inst_.nic_rpc); \
     connection seL4SharedData \
-        _inst_ ## _nic_dp_from ( \
+        _inst_ ## _nic_port_from ( \
             from    _inst_.nic_port_to, \
-            to      _nic_dp_from_); \
+            to      _nic_port_from_); \
     connection seL4SharedData \
-        _inst_ ## _nic_dp_to( \
+        _inst_ ## _nic_port_to( \
             from    _inst_.nic_port_from, \
-            to      _nic_dp_to_);
+            to      _nic_port_to_);
