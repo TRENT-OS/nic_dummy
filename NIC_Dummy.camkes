@@ -28,7 +28,7 @@ import <if_OS_Logger.camkes>;
     _ringbuffer_size_) \
     \
     component _name_ { \
-        IF_OS_NIC_LOWER_INTERFACE_FIELDS(nic, _ringbuffer_size_) \
+        IF_OS_NIC_PROVIDE(nic, _ringbuffer_size_) \
         \
         maybe uses      if_OS_Logger  logServer_rpc; \
         maybe dataport  Buf           logServer_port; \
